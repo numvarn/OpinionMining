@@ -14,3 +14,4 @@ class OpinionminingItem(scrapy.Item):
     link = scrapy.Field()
     netloc = scrapy.Field()
     title = scrapy.Field()
+    content = scrapy.Field()

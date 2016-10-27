@@ -1,3 +1,9 @@
+#-------------------------------------------------------------------------------
+# Name:        OpinionMiningSpider
+# Purpose:     Use for my research -- Opinion Mining from Thai website
+# Author:      Phisan Sookkhee
+# Created:     26 OCT 2016
+#-------------------------------------------------------------------------------
 import scrapy
 from scrapy.contrib.linkextractors.sgml import SgmlLinkExtractor
 from OpinionMining.items import OpinionminingItem
