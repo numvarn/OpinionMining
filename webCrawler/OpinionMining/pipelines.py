@@ -22,8 +22,18 @@ class OpinionminingPipeline(object):
         self.cur = self.conn.cursor()
 
     def process_item(self, item, spider):
-        self.cur.execute("INSERT INTO spider(title, netloc, link) \
-                          VALUES (%s, %s, %s)", \
-                          (item['title'], item['netloc'], item['link']))
-        self.conn.commit()
+        # check link is exist or not before insert
+        self.cur.execute("SELECT id FROM spider \
+                          WHERE link=%s", item['link'])
+        check_id = self.cur.fetchone()
+
+        # insert new link if not exist
+        if check_id == None:
+            self.cur.execute("INSERT INTO spider(title, netloc, link) \
+                              VALUES (%s, %s, %s)", \
+                              (item['title'], \
+                               item['netloc'], \
+                               item['link']))
+            self.conn.commit()
+
         return item
