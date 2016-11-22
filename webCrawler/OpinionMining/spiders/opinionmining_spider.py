@@ -61,7 +61,6 @@ class OpinionMiningSpider(scrapy.Spider):
                             yield item
                             break
 
-
     # def start_requests(self):
     #     self.conn = pymysql.connect(
     #         host='127.0.0.1',
