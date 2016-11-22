@@ -19,8 +19,8 @@ class OpinionMiningSpider(scrapy.Spider):
     name = "phisan"
 
     # Set start_urls from data in from CSV file
-    cr = csv.reader(open("/Users/phisan/Desktop/crawler/url.csv", "rb"))
-    start_urls = [line[2].strip() for line in cr]
+    # cr = csv.reader(open("/Users/phisan/Desktop/crawler/url.csv", "rb"))
+    # start_urls = [line[2].strip() for line in cr]
 
     def parse(self, response):
         # Read allowed_domains from CSV file
@@ -66,23 +66,23 @@ class OpinionMiningSpider(scrapy.Spider):
                                 break
 
     # Set start_urls from data in database
-    # def start_requests(self):
-    #     self.conn = pymysql.connect(
-    #         host='127.0.0.1',
-    #         unix_socket='/Applications/MAMP/tmp/mysql/mysql.sock',
-    #         port=3306,
-    #         user='web',
-    #         passwd='web',
-    #         db='opinion_spider',
-    #         use_unicode=True,
-    #         charset='utf8')
-    #
-    #     self.cur = self.conn.cursor()
-    #
-    #     # get data from database
-    #     self.cur.execute("SELECT link FROM spider WHERE id>%s", 3000)
-    #     rows = self.cur.fetchall()
-    #     for row in rows:
-    #         yield self.make_requests_from_url(row[0])
-    #
-    #     self.conn.close()
+    def start_requests(self):
+        self.conn = pymysql.connect(
+            host='127.0.0.1',
+            unix_socket='/Applications/MAMP/tmp/mysql/mysql.sock',
+            port=3306,
+            user='web',
+            passwd='web',
+            db='opinion_spider',
+            use_unicode=True,
+            charset='utf8')
+
+        self.cur = self.conn.cursor()
+
+        # get data from database
+        self.cur.execute("SELECT link FROM spider WHERE id>%s", 6666) #6666 - 37686 , 37687
+        rows = self.cur.fetchall()
+        for row in rows:
+            yield self.make_requests_from_url(row[0])
+
+        self.conn.close()
