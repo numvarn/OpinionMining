@@ -8,6 +8,7 @@
 #-------------------------------------------------------------------------------
 import scrapy
 import pymysql
+import csv
 from scrapy.contrib.linkextractors.sgml import SgmlLinkExtractor
 from OpinionMining.items import OpinionminingItem
 from urlparse import urlparse
@@ -16,11 +17,17 @@ from urlparse import urljoin
 class OpinionMiningSpider(scrapy.Spider):
     name = "phisan"
 
-    allowed_domains = ['*']
-    start_urls = ['http://www.thairath.co.th/home',]
-    # start_urls = []
+    start_urls = []
+
+    # Read start_urls from CSV file
+    cr = csv.reader(open("/Users/phisan/Desktop/crawler/url.csv", "rb"))
+    start_urls = [line[2].strip() for line in cr]
 
     def parse(self, response):
+        # Read allowed_domains from CSV file
+        cr = csv.reader(open("/Users/phisan/Desktop/crawler/netloc.csv", "rb"))
+        allowed_domains = [line[1].strip() for line in cr]
+
         for sel in response.xpath("//a"):
             item = OpinionminingItem()
 
@@ -47,8 +54,14 @@ class OpinionMiningSpider(scrapy.Spider):
                         item['netloc'] = r[1]
 
                     index += 1
-                    yield item
 
+                    # Check link is in allowed domain
+                    for allowed in allowed_domains:
+                        if item['netloc'].find(allowed) > 0 and item['netloc'] != "":
+                            yield item
+                            break
+    
+'''
     def start_requests(self):
         self.conn = pymysql.connect(
             host='127.0.0.1',
@@ -63,9 +76,10 @@ class OpinionMiningSpider(scrapy.Spider):
         self.cur = self.conn.cursor()
 
         # get data from database
-        self.cur.execute("SELECT link FROM spider WHERE id>%s", 1)
+        self.cur.execute("SELECT link FROM spider WHERE id>%s", 3000)
         rows = self.cur.fetchall()
         for row in rows:
             yield self.make_requests_from_url(row[0])
 
         self.conn.close()
+'''

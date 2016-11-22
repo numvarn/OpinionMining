@@ -1,1 +1,1 @@
-scrapy crawl phisan -o link.csv -t csv
+scrapy crawl phisan
