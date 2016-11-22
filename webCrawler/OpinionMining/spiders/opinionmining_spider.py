@@ -5,6 +5,7 @@
 #              and use pipeline to insert item to MySQL database
 # Author:      Phisan Sookkhee
 # Created:     27 OCT 2016
+# Edited:      22 NOV 2016
 #-------------------------------------------------------------------------------
 import scrapy
 import pymysql
@@ -17,9 +18,7 @@ from urlparse import urljoin
 class OpinionMiningSpider(scrapy.Spider):
     name = "phisan"
 
-    start_urls = []
-
-    # Read start_urls from CSV file
+    # Set start_urls from data in from CSV file
     cr = csv.reader(open("/Users/phisan/Desktop/crawler/url.csv", "rb"))
     start_urls = [line[2].strip() for line in cr]
 
@@ -28,39 +27,45 @@ class OpinionMiningSpider(scrapy.Spider):
         cr = csv.reader(open("/Users/phisan/Desktop/crawler/netloc.csv", "rb"))
         allowed_domains = [line[1].strip() for line in cr]
 
-        for sel in response.xpath("//a"):
-            item = OpinionminingItem()
+        selectors = [
+            '//a',
+        ]
 
-            titles = sel.xpath('text()').extract()
-            links = sel.xpath('@href').extract()
+        for selector in selectors:
+            for sel in response.xpath(selector):
+                item = OpinionminingItem()
 
-            # for multiple links
-            if len(links) != 0:
-                index = 0
-                for link in links:
-                    item['link'] = link
-                    r = urlparse(link)
-                    item['netloc'] = r[1]
+                titles = sel.xpath('text()').extract()
+                links = sel.xpath('@href').extract()
 
-                    if len(titles) != 0:
-                        item['title'] = titles[index]
-                    else:
-                        item['title'] = titles
-
-                    # for relative path link
-                    if item['netloc'] == '':
-                        item['link'] = urljoin(response.url, link)
-                        r = urlparse(item['link'])
+                # for multiple links
+                if len(links) != 0:
+                    index = 0
+                    for link in links:
+                        item['link'] = link
+                        r = urlparse(link)
                         item['netloc'] = r[1]
 
-                    index += 1
+                        if len(titles) != 0:
+                            item['title'] = titles[index]
+                        else:
+                            item['title'] = titles
 
-                    # Check link is in allowed domain
-                    for allowed in allowed_domains:
-                        if item['netloc'].find(allowed) > 0 and item['netloc'] != "":
-                            yield item
-                            break
+                        # for relative path link
+                        if item['netloc'] == '':
+                            item['link'] = urljoin(response.url, link)
+                            r = urlparse(item['link'])
+                            item['netloc'] = r[1]
 
+                        index += 1
+
+                        # Check link is in allowed domain
+                        for allowed in allowed_domains:
+                            if item['netloc'].find(allowed) >= 0 and item['netloc'] != "":
+                                yield item
+                                break
+
+    # Set start_urls from data in database
     # def start_requests(self):
     #     self.conn = pymysql.connect(
     #         host='127.0.0.1',
