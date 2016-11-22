@@ -31,7 +31,7 @@ class OpinionminingPipeline(object):
         if check_id == None:
             self.cur.execute("INSERT INTO spider(title, netloc, link) \
                               VALUES (%s, %s, %s)", \
-                              (item['title'], \
+                              (item['title'].strip(), \
                                item['netloc'], \
                                item['link']))
             self.conn.commit()
