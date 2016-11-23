@@ -1,1 +1,1 @@
-scrapy crawl phisan
+scrapy crawl phisan -a netloc="haamor.com"

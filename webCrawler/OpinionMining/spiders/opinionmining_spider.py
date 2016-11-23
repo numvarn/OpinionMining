@@ -5,7 +5,7 @@
 #              and use pipeline to insert item to MySQL database
 # Author:      Phisan Sookkhee
 # Created:     27 OCT 2016
-# Edited:      22 NOV 2016
+# Edited:      23 NOV 2016
 #-------------------------------------------------------------------------------
 import scrapy
 import pymysql
@@ -22,9 +22,15 @@ class OpinionMiningSpider(scrapy.Spider):
     # cr = csv.reader(open("/Users/phisan/Desktop/crawler/url.csv", "rb"))
     # start_urls = [line[2].strip() for line in cr]
 
+    # Scrapy constructor
+    # for receive command line argument
+    # @param netloc is start domain for query link from database
+    def __init__ (self, domain=None, netloc=None):
+        self.netlocStart = netloc
+
     def parse(self, response):
         # Read allowed_domains from CSV file
-        cr = csv.reader(open("/Users/phisan/Desktop/crawler/netloc.csv", "rb"))
+        cr = csv.reader(open("/Users/phisan/Desktop/crawler/allowed_domains.csv", "rb"))
         allowed_domains = [line[1].strip() for line in cr]
 
         selectors = [
@@ -80,7 +86,11 @@ class OpinionMiningSpider(scrapy.Spider):
         self.cur = self.conn.cursor()
 
         # get data from database
-        self.cur.execute("SELECT link FROM spider WHERE id>%s", 6666) #6666 - 37686 , 37687
+        # netloc_query = 'pantip.com'
+        self.cur.execute("SELECT link \
+                          FROM spider \
+                          WHERE netloc LIKE %s \
+                          ORDER BY id", '%'+self.netlocStart+'%')
         rows = self.cur.fetchall()
         for row in rows:
             yield self.make_requests_from_url(row[0])
