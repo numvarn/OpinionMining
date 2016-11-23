@@ -86,11 +86,15 @@ class OpinionMiningSpider(scrapy.Spider):
         self.cur = self.conn.cursor()
 
         # get data from database
-        # netloc_query = 'pantip.com'
-        self.cur.execute("SELECT link \
-                          FROM spider \
-                          WHERE netloc LIKE %s \
-                          ORDER BY id", '%'+self.netlocStart+'%')
+        if self.netloc == None:
+            self.cur.execute("SELECT link \
+                              FROM spider \
+                              ORDER BY id")
+        else:
+            self.cur.execute("SELECT link \
+                              FROM spider \
+                              WHERE netloc LIKE %s \
+                              ORDER BY id", '%'+self.netlocStart+'%')
         rows = self.cur.fetchall()
         for row in rows:
             yield self.make_requests_from_url(row[0])
