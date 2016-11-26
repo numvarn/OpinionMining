@@ -7,7 +7,7 @@
 #              and use BeautifulSoup to process hypertext document to plain text
 # Author:      Phisan Sookkhee
 # Created:     22 NOV 2016
-# Edited:      22 NOV 2016
+# Edited:      26 NOV 2016
 # Parameter    Get from comand line
 #              @startID
 #              @stopID
