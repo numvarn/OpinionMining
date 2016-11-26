@@ -2,6 +2,8 @@
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
+ *
+ * Edit by Phisan Sookkhee, 26 NOV 2016 
  */
 package myLexTo;
 
@@ -39,14 +41,10 @@ public class ReadConfig {
             for (int i = 0; i < arrobj.length(); i++) {
                 JSONObject item = arrobj.getJSONObject(i);
                 String lexitron = item.getString("lexitron");
-                String herblist = item.getString("herblist");
-                String properties = item.getString("properties");
                 String stopwords = item.getString("stopwords");
                 String symptoms = item.getString("symptoms");
 
                 config.put("lexitron", lexitron);
-                config.put("herblist", herblist);
-                config.put("properties", properties);
                 config.put("stopwords", stopwords);
                 config.put("symptoms", symptoms);
             }
