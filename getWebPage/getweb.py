@@ -17,12 +17,14 @@ from bs4 import BeautifulSoup
 from urllib2 import urlopen
 from urllib2 import HTTPError
 from getURLDB import GetPath
+import requests
 import os
 import sys
 import re
 
 def getWeb(urlid, url, directory):
     check = 1
+    htmlError = 0
     check = validateURLFormat(url)
     if not check:
         print "+++++ Invalid URL Address", url, "\n"
@@ -30,12 +32,15 @@ def getWeb(urlid, url, directory):
 
     try:
         html = urlopen(url).read()
-    except HTTPError, e:
-        print "HTTP Error ", e.code, "\n"
-        return 0
+        soup = BeautifulSoup(html, 'html.parser')
 
-    # create soup object
-    soup = BeautifulSoup(html, 'html.parser')
+    except HTTPError, e:
+        print "HTTP Error ", e.code, " : ", url, "\n"
+        print "Using Requests to downlaod web page\n"
+        htmlError = 1
+        html = requests.get(url)
+        soup = BeautifulSoup(html.content, "lxml") #********
+
 
     # for none utf-8 web page
     if soup.original_encoding != 'utf-8':
@@ -64,8 +69,12 @@ def getWeb(urlid, url, directory):
     original = directory+'/original/'
     if not os.path.exists(original):
         os.makedirs(original)
+
     filename = original+str(urlid)+'.html'
-    writeHTMLToFile(html, filename)
+    if htmlError == 1:
+        writeHTMLToFile(html.content, filename)
+    else:
+        writeHTMLToFile(html, filename)
 
     # process for file name from url
     target = directory+'/processed/'
@@ -138,7 +147,10 @@ def main(startID, stopID):
         count += 1
 
         # Create directory for store file
-        directory = '/Users/phisan/Desktop/rawData/'+row[2]
+        directory = os.path.expanduser('~')\
+                        +'/Desktop/rawData/'\
+                        +row[2]
+
         if not os.path.exists(directory):
             os.makedirs(directory)
 
@@ -147,7 +159,7 @@ def main(startID, stopID):
 # Main Program
 # Get Network Location from command line argument
 if __name__ == '__main__':
-    main(1, 500)
+    main(500, 550)
 
     # if len(sys.argv) != 1:
     #     if len(sys.argv) == 2:

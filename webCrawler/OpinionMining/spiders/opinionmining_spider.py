@@ -30,7 +30,7 @@ class OpinionMiningSpider(scrapy.Spider):
 
     def parse(self, response):
         # Read allowed_domains from CSV file
-        cr = csv.reader(open("/Users/phisan/Desktop/crawler/allowed_domains.csv", "rb"))
+        cr = csv.reader(open("/Users/phisanshukkhi/Desktop/crawler/allowed_domains.csv", "rb"))
         allowed_domains = [line[1].strip() for line in cr]
 
         selectors = [
@@ -86,15 +86,15 @@ class OpinionMiningSpider(scrapy.Spider):
         self.cur = self.conn.cursor()
 
         # get data from database
-        if self.netloc == None:
+        if self.netlocStart == None:
             self.cur.execute("SELECT link \
                               FROM spider \
-                              ORDER BY id")
+                              ORDER BY id DESC")
         else:
             self.cur.execute("SELECT link \
                               FROM spider \
                               WHERE netloc LIKE %s \
-                              ORDER BY id", '%'+self.netlocStart+'%')
+                              ORDER BY id DESC", '%'+self.netlocStart+'%')
         rows = self.cur.fetchall()
         for row in rows:
             yield self.make_requests_from_url(row[0])
