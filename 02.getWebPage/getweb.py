@@ -147,7 +147,7 @@ def main(startID, stopID):
 # Main Program
 # Get Network Location from command line argument
 if __name__ == '__main__':
-    main(1, 500)
+    main(500, 550)
 
     # if len(sys.argv) != 1:
     #     if len(sys.argv) == 2:
