@@ -1,0 +1,9 @@
+[
+  {
+    "lexitron" : "/Users/phisan/ResearchCode/OpinionMining/03.mylexto/myLexTo/dictionary/lexitron.txt",
+    "herblist" : "/Users/phisan/ResearchCode/OpinionMining/03.mylexto/myLexTo/dictionary/herblist.txt",
+    "properties" : "/Users/phisan/ResearchCode/OpinionMining/03.mylexto/myLexTo/dictionary/properties.txt",
+    "stopwords" : "/Users/phisan/ResearchCode/OpinionMining/03.mylexto/myLexTo/dictionary/stopwords.txt",
+    "symptoms" : "/Users/phisan/ResearchCode/OpinionMining/03.mylexto/myLexTo/dictionary/symptoms.txt"
+  }
+]
