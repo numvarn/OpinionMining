@@ -1,4 +1,4 @@
-python rmstopwords.py '/Users/phisan/Desktop/rawData/haamor.com/lexto/text'
+python rmstopwords.py '/Users/phisan/Desktop/rawData/health.haijai.com/lexto/text'
 
 # python rmstopwords.py '/Volumes/Phisan Segate/ข้อมูลวิจัย/ระบบสนับสนุนการตัดสินใจ/Processed/ThisHerbs.samunpri.com/lexto/text'
 # python rmstopwords.py '/Volumes/Phisan Segate/ข้อมูลวิจัย/ระบบสนับสนุนการตัดสินใจ/Processed/baby.haijai.com/lexto/text'

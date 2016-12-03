@@ -16,22 +16,27 @@ def readStopWords():
     return stopwords
 
 def removeStopWords(filepath, destination_dir, filename, stopwords):
-    f = open(filepath+"/"+filename, 'r')
-    ft = open(destination_dir+"/"+filename, 'w')
-    lineword = []
-    for line in iter(f):
-        newline = ''
-        string = line.decode('utf-8')
-        words = string.split("|")
-        index = 0
-        for word in words:
-            if word in stopwords or word == "":
-                del words[index]
-            index += 1
+    # f = open(filepath+"/"+filename, 'r')
+    ft = open(destination_dir+"/"+filename, 'a')
 
-        newline = "|".join(words)+"\n"
-        newline = newline.encode('utf-8')
-        ft.write(newline)
+    with open(filepath+"/"+filename, 'r') as f:
+        for line in f:
+            newword = []
+            if len(line.rstrip('\n')) > 0:
+                newline = ''
+                string = line.decode('utf-8')
+                words = string.split("|")
+                index = 0
+                for word in words:
+                    if word in stopwords or word == "":
+                        del words[index]
+                    index += 1
+
+                if len(words) > 0:
+                    newword = filter(lambda wd: not wd.isspace(), words)
+                    newline = "|".join(newword)+"\n"
+                    newline = newline.encode('utf-8')
+                    ft.write(newline)
 
     f.close()
     ft.close()
