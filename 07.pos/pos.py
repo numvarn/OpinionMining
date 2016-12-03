@@ -76,8 +76,10 @@ def main():
         filedir = sys.argv[1]
 
         upone_level = path.dirname(filedir.rstrip('/'))
-        uptwo_level = path.dirname(upone_level.rstrip('/'))
-        destination_dir = uptwo_level+"/pos"
+        destination_dir = upone_level+"/pos-stopword"
+
+        # uptwo_level = path.dirname(upone_level.rstrip('/'))
+        # destination_dir = uptwo_level+"/pos-full"
 
         # Create directory for store result file
         if not path.exists(destination_dir):
