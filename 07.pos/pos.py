@@ -37,8 +37,9 @@ def pastOfSpeech(filepath, destination_dir, filename, stopwords, lexitron, pos, 
 
     with open(filepath+"/"+filename, 'r') as f:
         for line in f:
+            line = line.rstrip('\n')
             newword = []
-            if len(line.rstrip('\n')) > 0:
+            if len(line) > 0:
                 newline = ''
                 string = line.decode('utf-8')
                 words = string.split("|")
@@ -52,10 +53,10 @@ def pastOfSpeech(filepath, destination_dir, filename, stopwords, lexitron, pos, 
                         lex_index = lexitron.index(word)
                         pos_tag = pos[lex_index]
                         words[index] = words[index] + "/" + pos_tag
-                    elif not word.isspace():
+                    elif word.isspace():
                         words[index] = words[index] + "/NA"
                     else:
-                        pass
+                        words[index] = words[index] + "/NA"
                     index += 1
 
                 if len(words) > 0:
