@@ -1,1 +1,5 @@
+python filterdoc.py '/Users/phisan/Desktop/rawData/haamor.com/stopwords'
 python filterdoc.py '/Users/phisan/Desktop/rawData/health.haijai.com/stopwords'
+python filterdoc.py '/Users/phisan/Desktop/rawData/health.kapook.com/stopwords'
+python filterdoc.py '/Users/phisan/Desktop/rawData/www.dailynews.co.th/stopwords'
+python filterdoc.py '/Users/phisan/Desktop/rawData/www.manager.co.th/stopwords'

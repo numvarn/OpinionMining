@@ -1,2 +1,5 @@
-# python pos.py '/Users/phisan/Desktop/rawData/health.haijai.com/lexto/text'
+python pos.py '/Users/phisan/Desktop/rawData/haamor.com/filtered'
 python pos.py '/Users/phisan/Desktop/rawData/health.haijai.com/filtered'
+python pos.py '/Users/phisan/Desktop/rawData/health.kapook.com/filtered'
+python pos.py '/Users/phisan/Desktop/rawData/www.dailynews.co.th/filtered'
+python pos.py '/Users/phisan/Desktop/rawData/www.manager.co.th/filtered'
