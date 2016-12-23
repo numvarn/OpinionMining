@@ -136,7 +136,7 @@ def createVector(rootDir, symptom, symptomID, verbs):
 
     # Write vector to CSV file
     # write only header
-    out_vector = rootDir+'/02.vector/'+str(symptomID)+'-'+symptom.encode('utf-8')+'.csv'
+    out_vector = rootDir+'/02.vector/raw-vector/'+str(symptomID)+'-'+symptom.encode('utf-8')+'.csv'
     with open(out_vector, 'wb') as myfile:
         header = copy.deepcopy(terms_list)
 
@@ -219,11 +219,11 @@ def main():
         symptomID = 0
 
         # for test
-        symptomID = 16
-        print '\n#%s Processing Sysmptom : %s' %(symptomID ,symptoms[symptomID])
-        createVector(rootDir, symptoms[symptomID], symptomID, verbs)
+        # symptomID = 16
+        # print '\n#%s Processing Sysmptom : %s' %(symptomID ,symptoms[symptomID])
+        # createVector(rootDir, symptoms[symptomID], symptomID, verbs)
 
-        '''
+
         for symp in symptoms:
             print '#%s Processing Sysmptom : %s' %(symptomID ,symp)
 
@@ -231,9 +231,8 @@ def main():
             createVector(rootDir, symp, symptomID, verbs)
             symptomID += 1
 
-            if symptomID > 10:
+            if symptomID > 100:
                 break
-        '''
     else:
         print 'Please, Enter File Directory'
 
