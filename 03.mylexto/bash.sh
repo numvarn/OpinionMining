@@ -1,3 +1,3 @@
-cd "/Users/phisan/Desktop/rawData"
+cd "/Users/phisanshukkhi/Desktop/rawData"
 
-java -jar /Users/phisan/ResearchCode/OpinionMining/03.mylexto/myLexTo/dist/myLexTo.jar ./haamor.com/processed
+java -jar /Users/phisanshukkhi/ResearchCode/OpinionMining/03.mylexto/myLexTo/dist/myLexTo.jar ./haamor.com/processed

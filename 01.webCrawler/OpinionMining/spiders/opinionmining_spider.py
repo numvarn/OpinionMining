@@ -89,12 +89,12 @@ class OpinionMiningSpider(scrapy.Spider):
         if self.netlocStart == None:
             self.cur.execute("SELECT link \
                               FROM spider \
-                              ORDER BY id DESC")
+                              ORDER BY id DESC LIMIT 2000")
         else:
             self.cur.execute("SELECT link \
                               FROM spider \
                               WHERE netloc LIKE %s \
-                              ORDER BY id DESC", '%'+self.netlocStart+'%')
+                              ORDER BY id DESC LIMIT 500", '%'+self.netlocStart+'%')
         rows = self.cur.fetchall()
         for row in rows:
             yield self.make_requests_from_url(row[0])
