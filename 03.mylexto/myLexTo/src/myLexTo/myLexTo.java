@@ -2,6 +2,8 @@
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
+ *
+ * Edit by Phisan Sookkhee, 26 NOV 2016
  */
 package myLexTo;
 
@@ -72,24 +74,9 @@ public class myLexTo {
 
             /* Create LexTo instance*/
             LongLexTo tokenizer = new LongLexTo(new File((String) config.get("lexitron")));
-            File herblist = new File((String) config.get("herblist"));
-            File properties = new File((String) config.get("properties"));
+           
             File stopwords = new File((String) config.get("stopwords"));
             File symptoms = new File((String) config.get("symptoms"));
-            
-            if (herblist.exists()) {
-                tokenizer.addDict(herblist);
-            }else {
-                System.out.println("Herb name list is not exits !!");
-                System.exit(0);
-            }
-            
-            if (properties.exists()) {
-                tokenizer.addDict(properties);
-            } else {
-                System.out.println("Properties list is not exitst !!");
-                System.exit(0);
-            }
             
             if (stopwords.exists()) {
                 tokenizer.addDict(stopwords);

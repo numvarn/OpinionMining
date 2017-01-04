@@ -135,21 +135,20 @@ def removeEmptyLine(filename, tmpfile):
     file2.close()
 
 # Start program
-def main(startID, stopID):
+def main(netloc):
     # Create Object from GetPath Class
     # And query urlpath from DB
-    getPath = GetPath(startID, stopID)
+    getPath = GetPath(netloc)
     rows = getPath.getResult()
 
     count = 1
     for row in rows:
-        print "Processed : ", count," : ID -- ",row[0], " : ", row[1].encode('utf-8', 'replace'), "\n"
+        print "Processed : %s : #%s : ID - %s : %s\n" \
+                %(netloc, count, row[0], row[1].encode('utf-8', 'replace'))
+
         count += 1
 
-        # Create directory for store file
-        directory = os.path.expanduser('~')\
-                        +'/Desktop/rawData/'\
-                        +row[2]
+        directory = '/Volumes/Phisan/rawData/'+row[2]
 
         if not os.path.exists(directory):
             os.makedirs(directory)
@@ -159,12 +158,8 @@ def main(startID, stopID):
 # Main Program
 # Get Network Location from command line argument
 if __name__ == '__main__':
-    main(500, 550)
-
-    # if len(sys.argv) != 1:
-    #     if len(sys.argv) == 2:
-    #         sys.argv.append(0)
-    #
-    #     main(sys.argv[1], sys.argv[2])
-    # else:
-    #     print "Please, Enter Network Location"
+    if len(sys.argv) > 1:
+        print "\nNetwork Location : %s\n" %(sys.argv[1])
+        main(sys.argv[1])
+    else:
+        print "Please, Enter Network Location"

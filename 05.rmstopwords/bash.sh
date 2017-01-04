@@ -1,0 +1,5 @@
+python rmstopwords.py '/Users/phisan/Desktop/rawData/haamor.com/lexto/text'
+python rmstopwords.py '/Users/phisan/Desktop/rawData/health.haijai.com/lexto/text'
+python rmstopwords.py '/Users/phisan/Desktop/rawData/health.kapook.com/lexto/text'
+python rmstopwords.py '/Users/phisan/Desktop/rawData/www.dailynews.co.th/lexto/text'
+python rmstopwords.py '/Users/phisan/Desktop/rawData/www.manager.co.th/lexto/text'

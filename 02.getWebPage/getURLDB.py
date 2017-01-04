@@ -5,10 +5,9 @@ import pymysql
 
 class GetPath:
     """docstring for GetPathh"""
-    def __init__(self, start, stop):
+    def __init__(self, netloc):
         self.cur = ''
-        self.startID = start
-        self.stopID = stop
+        self.netloc = netloc
         self.connect()
 
     def connect(self):
@@ -25,9 +24,7 @@ class GetPath:
         self.cur = conn.cursor()
 
         # Get all from Database
-        self.cur.execute("SELECT * \
-                          FROM spider \
-                          WHERE id>=%s AND id<=%s", (self.startID, self.stopID))
+        self.cur.execute("SELECT * FROM spider WHERE netloc LIKE %s ORDER BY id ASC", ('%'+self.netloc+'%'))
         self.cur.close()
         conn.close()
 
