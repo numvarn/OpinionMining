@@ -7,7 +7,7 @@
 #              and use BeautifulSoup to process hypertext document to plain text
 # Author:      Phisan Sookkhee
 # Created:     22 NOV 2016
-# Edited:      26 NOV 2016
+# Edited:      06 JAN 2017
 # Parameter    Get from comand line
 #              @startID
 #              @stopID
@@ -16,8 +16,10 @@
 from bs4 import BeautifulSoup
 from urllib2 import urlopen
 from urllib2 import HTTPError
+from urllib2 import URLError
 from getURLDB import GetPath
 import requests
+import socket
 import os
 import sys
 import re
@@ -33,8 +35,9 @@ def getWeb(urlid, url, directory):
         return 0
 
     try:
-        html = urlopen(url).read()
+        html = urlopen(url, timeout=5).read()
         soup = BeautifulSoup(html, 'html.parser')
+
     except HTTPError, e:
         print "HTTP Error ", e.code, " : ", url, "\n"
         print "Using Requests to downlaod web page\n"
@@ -44,7 +47,17 @@ def getWeb(urlid, url, directory):
             html = requests.get(url)
             soup = BeautifulSoup(html.content, "lxml")
         except Exception as e:
+            print "Can not download this page"
             return 0
+
+    except URLError, e:
+        print "Url Error %s" %(e)
+        return 0
+
+    except socket.timeout:
+        print "Socket Timeout"
+        return 0
+
 
     # for none utf-8 web page
     if soup.original_encoding != 'utf-8':
@@ -147,12 +160,14 @@ def main(netloc, lower):
 
     count = 1
     for row in rows:
-        print "Processed : %s : #%s : ID - %s : %s\n" \
-                %(netloc, count, row[0], row[1].encode('utf-8', 'replace'))
+        print "Processed : %s : #%s : ID - %s : %s , write to : %s\n" \
+                %(netloc, count, row[0], \
+                  row[1].encode('utf-8', 'replace'), \
+                  row[2].encode('utf-8', 'replace'))
 
         count += 1
 
-        directory = '/Volumes/Phisan/rawData/'+row[2]
+        directory = '/Volumes/Phisan Segate/rawData/'+row[2]
 
         if not os.path.exists(directory):
             os.makedirs(directory)
