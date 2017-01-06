@@ -1,5 +1,5 @@
 # python getweb.py "cleothailand.com"
-python getweb.py "dailynews.co.th" "271673"
+python getweb.py "dailynews.co.th" "328007"
 # python getweb.py "doctor.or.th" "90058"
 # python getweb.py "goodlifeupdate.com"
 # python getweb.py "haamor.com"
