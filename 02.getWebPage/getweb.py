@@ -24,8 +24,10 @@ import re
 
 def getWeb(urlid, url, directory):
     check = 1
-    htmlError = 0
     check = validateURLFormat(url)
+    html = ""
+    htmlError = 0
+
     if not check:
         print "+++++ Invalid URL Address", url, "\n"
         return 0
@@ -33,14 +35,16 @@ def getWeb(urlid, url, directory):
     try:
         html = urlopen(url).read()
         soup = BeautifulSoup(html, 'html.parser')
-
     except HTTPError, e:
         print "HTTP Error ", e.code, " : ", url, "\n"
         print "Using Requests to downlaod web page\n"
         htmlError = 1
-        html = requests.get(url)
-        soup = BeautifulSoup(html.content, "lxml") #********
 
+        try:
+            html = requests.get(url)
+            soup = BeautifulSoup(html.content, "lxml")
+        except Exception as e:
+            return 0
 
     # for none utf-8 web page
     if soup.original_encoding != 'utf-8':
@@ -49,7 +53,7 @@ def getWeb(urlid, url, directory):
             soup = BeautifulSoup(decoded_html, 'html.parser')
         except :
             print "Dectect error ", urlid, " -- ", url
-            pass
+            return 0
 
     # remove javascript
     to_extract = soup.findAll('script')
@@ -135,10 +139,10 @@ def removeEmptyLine(filename, tmpfile):
     file2.close()
 
 # Start program
-def main(netloc):
+def main(netloc, lower):
     # Create Object from GetPath Class
     # And query urlpath from DB
-    getPath = GetPath(netloc)
+    getPath = GetPath(netloc, lower)
     rows = getPath.getResult()
 
     count = 1
@@ -159,7 +163,13 @@ def main(netloc):
 # Get Network Location from command line argument
 if __name__ == '__main__':
     if len(sys.argv) > 1:
-        print "\nNetwork Location : %s\n" %(sys.argv[1])
-        main(sys.argv[1])
+        if len(sys.argv) == 3:
+            lower = int(sys.argv[2])
+        else:
+            lower = 0
+
+        print "\nNetwork Location : %s and Lower is : %s\n" %(sys.argv[1], lower)
+
+        main(sys.argv[1], lower)
     else:
         print "Please, Enter Network Location"

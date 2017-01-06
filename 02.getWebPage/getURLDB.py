@@ -5,9 +5,10 @@ import pymysql
 
 class GetPath:
     """docstring for GetPathh"""
-    def __init__(self, netloc):
+    def __init__(self, netloc, lower):
         self.cur = ''
         self.netloc = netloc
+        self.lower = lower
         self.connect()
 
     def connect(self):
@@ -24,7 +25,10 @@ class GetPath:
         self.cur = conn.cursor()
 
         # Get all from Database
-        self.cur.execute("SELECT * FROM spider WHERE netloc LIKE %s ORDER BY id ASC", ('%'+self.netloc+'%'))
+        self.cur.execute("SELECT * FROM spider \
+                          WHERE netloc LIKE %s \
+                          AND id > %s \
+                          ORDER BY id ASC", ('%'+self.netloc+'%', self.lower))
         self.cur.close()
         conn.close()
 
