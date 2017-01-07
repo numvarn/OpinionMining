@@ -2,7 +2,7 @@
 # python getweb.py "dailynews.co.th"
 # python getweb.py "doctor.or.th"
 # python getweb.py "goodlifeupdate.com"
-python getweb.py "haamor.com" "58121"
+# python getweb.py "haamor.com" "58121"
 # python getweb.py "haijai.com"
 # python getweb.py "healthmefit.com"
 # python getweb.py "healthydeedee.com"
