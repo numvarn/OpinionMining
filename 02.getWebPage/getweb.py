@@ -167,7 +167,7 @@ def main(netloc, lower):
 
         count += 1
 
-        directory = '/Volumes/Phisan Segate/rawData/'+row[2]
+        directory = '/Volumes/Research/Data/rawData/'+row[2]
 
         if not os.path.exists(directory):
             os.makedirs(directory)

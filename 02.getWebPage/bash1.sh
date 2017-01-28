@@ -11,7 +11,7 @@
 # python getweb.py "ihealth24.com"
 # python getweb.py "kapook.com"
 # python getweb.py "mahosot.com"
-# python getweb.py "mamaexpert.com"
+python getweb.py "mamaexpert.com"
 # python getweb.py "manager.co.th"
 # python getweb.py "matichon.co.th"
 # python getweb.py "mitthai.com"

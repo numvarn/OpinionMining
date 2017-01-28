@@ -106,7 +106,7 @@ def createVector(rootDir, symptom, symptomID, verbs):
     outfile = rootDir+'/01.wordlist/'+str(symptomID)+'-'+symptom.encode('utf-8')+'.csv'
     with open(outfile, 'wb') as myfile:
         wr = csv.writer(myfile, quoting=csv.QUOTE_ALL)
-        header = ['TH-verbs', 'EN-verbs', 'Word Fequency', 'Doc Fequency', 'DF']
+        header = ['TH-verbs', 'EN-verbs', 'Word Fequency', 'Doc Fequency', 'IDF']
         wr.writerow(header)
 
         for term in feq_word:
