@@ -25,7 +25,7 @@ def readVerbsDict():
     return verbs
 
 def main():
-    src_dir = "/Volumes/PHISAN_HD/filtered-pos"
+    src_dir = "/Volumes/Sirikanlaya/rawData/haamor.com/filtered-pos"
 
     symptoms = readSymptoms()
     verbs = readVerbsDict()
@@ -55,9 +55,11 @@ def main():
         for i in founded_symptom:
             document_feq[i] += 1
 
+        print("#{} : {}".format(file_count, filename))
         file_count += 1
-        if file_count > 20:
-            break
+        
+        # if file_count > 20:
+        #     break
 
     # Calculate IDF value
     for i in range(0, len(symptoms)):
@@ -67,7 +69,7 @@ def main():
             term_idf[i] = 0
 
     # Write wordlist to CSV file
-    outfile = '/Users/phisan/Desktop/WordListSymptoms.csv'
+    outfile = '/Users/phisanshukkhi/Desktop/research_result/WordListSymptoms.csv'
     header = ['ID', 'Symptom', 'Word Fequency', 'Doc Fequency', 'IDF']
     with open(outfile, 'wb') as myfile:
         wr = csv.writer(myfile, quoting=csv.QUOTE_ALL)
