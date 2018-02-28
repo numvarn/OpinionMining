@@ -3,7 +3,7 @@ import numpy as np
 
 class Stemming():
     def __init__(self, input_file):
-        super(Stemming, self).__init__()
+        # super(Stemming, self).__init__()
         self.input_file = input_file
 
     def stem(self):
@@ -33,7 +33,7 @@ class Stemming():
 
 
 if __name__ == '__main__':
-    in_file = "/Users/phisan/Desktop/WordListVerbs/original.csv"
+    in_file = "/Users/phisanshukkhi/ResearchCode/OpinionMining/08.wordVector/dict/WordListVerbs-selected.csv"
     stem = Stemming(in_file)
     stemed = stem.stem()
 
