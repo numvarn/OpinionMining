@@ -208,7 +208,9 @@ def createVector(rootDir, symptom, symptomID, verbs):
                     with open(out_vector, 'a') as myfile:
                         wr = csv.writer(myfile, quoting=csv.QUOTE_ALL)
                         wr.writerow(term_feq)
+                        
     print '----- Word Vector file has been writed !!'
+
 def main():
     if len(sys.argv) != 1:
         symptoms = readSymptoms()
@@ -222,7 +224,6 @@ def main():
         # symptomID = 16
         # print '\n#%s Processing Sysmptom : %s' %(symptomID ,symptoms[symptomID])
         # createVector(rootDir, symptoms[symptomID], symptomID, verbs)
-
 
         for symp in symptoms:
             print '#%s Processing Sysmptom : %s' %(symptomID ,symp)

@@ -1,2 +1,2 @@
 # python pos.py '/Users/phisan/Desktop/rawData/health.haijai.com/lexto/text'
-python createWordVector.py '/Users/phisan/Desktop/rawData'
+python 04WordVector.py '/Volumes/Sirikanlaya/rawData'
