@@ -18,19 +18,15 @@ class Stemming():
 
         term_arr = np.array(term_lt)
         term_new = []
-        stem = []
+        stem = {}
         for term in term_arr:
-            index = -1
+            # index = -1
             if term[0] not in term_new:
                 term_new.append(term[0])
-                stem.append([term[0], term[1]])
+                stem.update({term[0]:{term[1]}})
             else:
-                index = term_new.index(term[0])
-                line = stem[index]
-                stem[index] = line + [term[1]]
-
+                stem[term[0]].add(term[1])
         return stem
-
 
 if __name__ == '__main__':
     in_file = "/Users/phisan/ResearchCode/OpinionMining/08.wordVector/dict/WordListVerbs-selected.csv"
@@ -38,6 +34,6 @@ if __name__ == '__main__':
     stemed = stem.stem()
 
     number = 1
-    for line in stemed:
-        print("{} : {}".format(number, line))
+    for key in stemed.keys():
+        print("{} : {} : {}".format(number, key, stemed[key]))
         number += 1
